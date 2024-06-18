@@ -149,8 +149,15 @@
             </build>
         </profile>
 
+        <!-- Moving spring-boot start/stop into a separate profile speeds up regular builds.
+     Execute mvn verify -Pit to run integration tests -->
         <profile>
             <id>it</id>
+            <activation>
+                <property>
+                    <name>it</name>
+                </property>
+            </activation>
             <build>
                 <plugins>
                     <plugin>
@@ -158,26 +165,26 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>start-spring-boot</id>
-                                <phase>pre-integration-test</phase>
+                                <id>pre-integration-test</id>
                                 <goals>
                                     <goal>start</goal>
                                 </goals>
                             </execution>
                             <execution>
-                                <id>stop-spring-boot</id>
-                                <phase>post-integration-test</phase>
+                                <id>post-integration-test</id>
                                 <goals>
                                     <goal>stop</goal>
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <wait>1000</wait>
+                            <maxAttempts>180</maxAttempts>
+                        </configuration>
                     </plugin>
-
-                    <!-- Runs the integration tests (*IT) after the server is started -->
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.22.2</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -188,12 +195,36 @@
                         </executions>
                         <configuration>
                             <trimStackTrace>false</trimStackTrace>
-                            <enableAssertions>true</enableAssertions>
+                            <systemPropertyVariables>
+                                <com.vaadin.testbench.Parameters.runLocally>chrome</com.vaadin.testbench.Parameters.runLocally>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>it-headless</id>
+            <activation>
+                <property>
+                    <name>it</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.22.2</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <com.vaadin.testbench.Parameters.headless>true</com.vaadin.testbench.Parameters.headless>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
 
     </profiles>
 </project>

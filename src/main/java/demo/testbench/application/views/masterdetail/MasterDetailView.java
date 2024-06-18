@@ -145,6 +145,7 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
             Optional<SamplePerson> samplePersonFromBackend = samplePersonService.get(samplePersonId.get());
             if (samplePersonFromBackend.isPresent()) {
                 populateForm(samplePersonFromBackend.get());
+                grid.select(samplePersonFromBackend.get());
             } else {
                 Notification.show(
                         String.format("The requested samplePerson was not found, ID = %s", samplePersonId.get()), 3000,
