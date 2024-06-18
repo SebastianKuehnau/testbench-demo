@@ -24,7 +24,7 @@ public class HelloWorldViewIT extends BrowserTestBase {
     // Please note that since TestBench 9 test methods
     // must be annotated with helper @BrowserTest annotation.
     @BrowserTest
-    public void clickButton() throws InterruptedException {
+    public void clickButton() {
         //find text field according to id and set value to marvin
         TextFieldElement textField = $(TextFieldElement.class).id("name-field");
         textField.setValue("Marvin");
@@ -43,8 +43,8 @@ public class HelloWorldViewIT extends BrowserTestBase {
         Assertions.assertTrue(notificationElement.isOpen());
         Assertions.assertEquals("Hello Marvin", notificationElement.getText());
 
-        Thread.sleep(5000);
+        Boolean isNotificationClosed = waitUntil(driver -> !$(NotificationElement.class).exists(), 5000);
 
-        Assertions.assertFalse(notificationElement.isOpen());
+        Assertions.assertTrue(isNotificationClosed);
     }
 }
