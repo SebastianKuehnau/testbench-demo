@@ -168,6 +168,7 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
 
         FormLayout formLayout = new FormLayout();
         firstName = new TextField("First Name");
+        firstName.setId("first-name");
         lastName = new TextField("Last Name");
         email = new TextField("Email");
         phone = new TextField("Phone");
@@ -186,7 +187,10 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
     private void createButtonLayout(Div editorLayoutDiv) {
         HorizontalLayout buttonLayout = new HorizontalLayout();
         buttonLayout.setClassName("button-layout");
+
         cancel.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        cancel.setId("cancel");
+
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         buttonLayout.add(save, cancel);
         editorLayoutDiv.add(buttonLayout);

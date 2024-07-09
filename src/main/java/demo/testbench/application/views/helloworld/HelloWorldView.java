@@ -13,7 +13,7 @@ import org.jboss.logging.Logger;
 
 @PageTitle("Hello World")
 @Route(value = "", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+@RouteAlias(value = "hello-world", layout = MainLayout.class)
 public class HelloWorldView extends HorizontalLayout {
 
     private final Logger logger = Logger.getLogger(HelloWorldView.class);
@@ -39,6 +39,10 @@ public class HelloWorldView extends HorizontalLayout {
         setVerticalComponentAlignment(Alignment.END, name, sayHello);
 
         add(name, sayHello);
+    }
+
+    public void helloTest() {
+        logger.info("test");
     }
 
 }

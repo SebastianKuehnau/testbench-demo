@@ -12,11 +12,20 @@ public class HelloWorldViewTest extends SpringUIUnitTest {
     public void setText_clickButton_notificationIsShown() {
         final HelloWorldView helloView = navigate(HelloWorldView.class);
 
+        helloView.helloTest();
+
         test(helloView.name).setValue("Marvin");
         test(helloView.sayHello).click();
 
         Notification notification = $(Notification.class).first();
         Assertions.assertEquals("Hello Marvin", test(notification).getText());
+
+
+    }
+
+    @Test
+    public void textBackend() {
+
     }
 }
 
