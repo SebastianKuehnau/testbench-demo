@@ -168,7 +168,7 @@ public class MasterDetailView extends Div implements BeforeEnterObserver {
 
         FormLayout formLayout = new FormLayout();
         firstName = new TextField("First Name");
-        firstName.setId("first-name");
+        firstName.setId("firstName");
         lastName = new TextField("Last Name");
         email = new TextField("Email");
         phone = new TextField("Phone");
