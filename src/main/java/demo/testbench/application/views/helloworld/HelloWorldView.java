@@ -42,7 +42,6 @@ public class HelloWorldView extends HorizontalLayout {
     }
 
     public void helloTest() {
-        logger.info("test");
+        logger.info("hello test world");
     }
-
 }
